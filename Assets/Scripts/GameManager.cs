@@ -34,9 +34,19 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        scoreText.text = "Score: " + score;
         StartGame();
     }
-
+    /*public void UpdateScore(int score)
+    {
+        this.score = this.score + score;
+        scoreText.text = "score: + " +this.score;
+    }*/
+    public void UpdateScore(int s)
+    {
+        score += s;
+        scoreText.text = "score: " + this.score;
+    }
     void StartGame()
     {
         StartCoroutine(SpawnTargets());
@@ -44,7 +54,13 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnTargets()
     {
-        yield return null;
+        while (true)
+        {
+            int idx = Random.Range(0, targets.Count);
+            var prefad = targets[idx];
+            Instantiate(prefad);
+            yield return new WaitForSeconds(spawnRate);
+        }
     }
 }
 
